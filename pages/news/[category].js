@@ -1,7 +1,8 @@
-const NewsHome = ({news}) => {
+const Cateogry = ({news}) => {
+    console.log('Category: ',news);
     return ( 
         <>
-            <h1>News Home Page</h1>
+            <h1>Category</h1>
             {news.map(x=>(
                 <div key={x.id}>
                     <h2> {x.title} </h2>
@@ -14,12 +15,16 @@ const NewsHome = ({news}) => {
      );
 }
  
-export default NewsHome;
+export default Cateogry;
 
 export async function getServerSideProps(context){
-    // console.log('SSR: ',context);
-    const res = await fetch('http://localhost:4000/news')
-    const data = await res.json()
+    const {params,res,req,query} = context
+
+    console.log('\nWhat is params: ',params);
+    console.log('\n\nWhat is query: ',query);
+
+    const response = await fetch(`http://localhost:4000/news?category=${params.category}`)
+    const data = await response.json()
 
     return{
         props:{
