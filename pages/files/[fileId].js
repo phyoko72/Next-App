@@ -32,13 +32,13 @@ export async function getStaticProps(context){
 
     console.log('Generating File and context is: ',context);
 
-
     const res = await fetch(`http://localhost:4000/products/${params.fileId}`)
     const data = await res.json()
 
     return{
         props:{
             product:data
-        }
+        },
+        revalidate: 10
     }
 }
